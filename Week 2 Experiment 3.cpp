@@ -1,20 +1,37 @@
-// ConsoleApplication26.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+using namespace std;
 
-int main()
-{
-    std::cout << "Hello World!\n";
+// Define structure
+struct Employee {
+    int empNumber;
+    float salary;
+};
+
+// Function to display employee data
+void display(Employee e) {
+    cout << "Employee Number: " << e.empNumber << endl;
+    cout << "Salary: $" << e.salary << endl;
+    cout << "------------------------" << endl;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+int main() {
+    Employee e[3];
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+    // Input data for 3 employees
+    for (int i = 0; i < 3; i++) {
+        cout << "Enter details of Employee " << i + 1 << endl;
+        cout << "Employee Number: ";
+        cin >> e[i].empNumber;
+        cout << "Salary: ";
+        cin >> e[i].salary;
+        cout << endl;
+    }
+
+    // Display data using function
+    cout << "\n--- Employee Details ---\n";
+    for (int i = 0; i < 3; i++) {
+        display(e[i]);
+    }
+
+    return 0;
+}
