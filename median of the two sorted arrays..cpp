@@ -1,20 +1,49 @@
-// ConsoleApplication25.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <vector>
+#include <climits>
+using namespace std;
 
-int main()
-{
-    std::cout << "Hello World!\n";
+double findMedianSortedArrays(vector<int>& A, vector<int>& B) {
+    if (A.size() > B.size())
+        return findMedianSortedArrays(B, A);
+
+    int n = A.size();
+    int m = B.size();
+    int low = 0, high = n;
+
+    while (low <= high) {
+        int cutA = (low + high) / 2;
+        int cutB = (n + m + 1) / 2 - cutA;
+
+        int leftA = (cutA == 0) ? INT_MIN : A[cutA - 1];
+        int leftB = (cutB == 0) ? INT_MIN : B[cutB - 1];
+
+        int rightA = (cutA == n) ? INT_MAX : A[cutA];
+        int rightB = (cutB == m) ? INT_MAX : B[cutB];
+
+        if (leftA <= rightB && leftB <= rightA) {
+            if ((n + m) % 2 == 0) {
+                return (max(leftA, leftB) + min(rightA, rightB)) / 2.0;
+            } else {
+                return max(leftA, leftB);
+            }
+        }
+        else if (leftA > rightB) {
+            high = cutA - 1;
+        }
+        else {
+            low = cutA + 1;
+        }
+    }
+
+    return 0.0;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+int main() {
+    vector<int> A = {1, 3};
+    vector<int> B = {2};
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+    cout << "Median: " << findMedianSortedArrays(A, B) << endl;
+
+    return 0;
+}
